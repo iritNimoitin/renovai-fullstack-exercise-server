@@ -1,21 +1,16 @@
 import { Request, Response } from 'express';
-import { deleteDriver, getAllDrivers } from '../services/driversService';
+import { getAllDrivers } from '../services/driversService';
 
-export const getDriversData = async (req: Request, res: Response) => {
-    try {
-        const data = await getAllDrivers();
-        res.json(data);
-      } catch (error) {
-        res.status(500).json({ error: 'Internal server error - getDriversData' });
-      }
-};
+let drivers: any = [];
 
-export const deleteDriverController = async (req: Request, res: Response) => {
-    const driverId = req.params.id;
+export const getDrivers = async (req: Request, res: Response) => {
+  if(drivers?.length === 0) {
     try {
-      const updatedDrivers = await deleteDriver(driverId);
-      res.json(updatedDrivers);
+      drivers = await getAllDrivers();
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error - deleteDriverController' });
+      res.status(500).json({ error: 'Internal server error - getDrivers' });
+      return;
     }
-  };
+  }
+  res.json(drivers);
+};

@@ -1,10 +1,10 @@
 import express from 'express';
-import { getDriversTasksData, writeDriversTasksData } from '../controllers/driversTasksController';
+import { getConnections, assignDriverToTask } from '../controllers/connectionsController';
 
 
 const router = express.Router();
 
-router.get('/getDriversTasks', getDriversTasksData);
-router.post('/writeDriversTasks', writeDriversTasksData); 
+router.get('/getConnections', getConnections);
+router.post('/assignDriverToTask', assignDriverToTask); 
 
 export default router;
