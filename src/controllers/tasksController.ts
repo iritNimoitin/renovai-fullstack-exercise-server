@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { getAllTasks } from '../services/tasksService';
+import Task from '../interfaces/taskInterface';
 
-let tasks: any = [];
+let tasks: Array<Task> = [];
 
 export const getTasks = async (req: Request, res: Response) => {
   if(tasks?.length === 0) {

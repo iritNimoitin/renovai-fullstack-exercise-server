@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { getAllDrivers } from '../services/driversService';
+import Driver from '../interfaces/driverInterface';
 
-let drivers: any = [];
+let drivers: Array<Driver> = [];
 
 export const getDrivers = async (req: Request, res: Response) => {
   if(drivers?.length === 0) {
