@@ -1,25 +1,34 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 //key: taskId , value: driverId
-const connections = new Map<string, string>();
+const connections = new Map<string, string | undefined>();
 
 export const getConnections = (req: Request, res: Response) => {
-  const connectionsArray = Array.from(connections.entries()).map(([taskId, driverId]) => ({
-    taskId,
-    driverId,
-  }));
-  res.send(connectionsArray);
+  const json = JSON.stringify(Object.fromEntries(connections));
+  res.send(json);
 };
 
 export const assignDriverToTask = (req: Request, res: Response) => {
   const taskId: string = req.body.taskId;
   const driverId: string = req.body.driverId;
-  if(!taskId) {
-    return res.status(500).json({ error: 'Missing taskId - assignDriverToTask' });
+  if (!taskId && !driverId) {
+    return res
+      .status(500)
+      .json({ error: "Missing taskId & driverId - assignDriverToTask" });
   }
-  if(!driverId) {
-    return res.status(500).json({ error: 'Missing driverId - assignDriverToTask' });
+  if (!taskId && driverId) {
+    for (const [key, value] of connections.entries()) {
+      if (value === driverId) {
+        connections.delete(key);
+      }
+    }
   }
-  connections.set(taskId, driverId);
-  res.json("Success");
+  if (!driverId && taskId) {
+    connections.delete(taskId);
+  }
+  if (driverId && taskId) {
+    connections.set(taskId, driverId);
+  }
+  const json = JSON.stringify(Object.fromEntries(connections));
+  res.send(json);
 };

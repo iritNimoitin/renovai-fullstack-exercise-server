@@ -1,8 +1,8 @@
-import express from 'express';
-import { getTasks } from '../controllers/tasksController';
+import express from "express";
+import { getTasks } from "../controllers/tasksController";
 
 const router = express.Router();
 
-router.get('/getTasks', getTasks);
+router.get("/getTasks", getTasks);
 
 export default router;

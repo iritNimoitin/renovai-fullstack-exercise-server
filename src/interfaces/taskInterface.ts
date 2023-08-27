@@ -1,9 +1,9 @@
 export default interface Task {
-    lineId: string,
-    lineDisplayId: string,
-    tasks: Array<subTask>
+  lineId: string;
+  lineDisplayId: string;
+  tasks: Array<subTask>;
 }
 interface subTask {
-    taskID: string,
-    type: string
+  taskID: string;
+  type: string;
 }
