@@ -11,14 +11,3 @@ export const getAllDrivers = async () => {
     throw new Error('Error reading driver.JSON file');
   }
 };
-
-export const deleteDriver = async (driverId: string) => {
-  try {
-    const allDrivers = await getAllDrivers();
-    const updatedDrivers = allDrivers.filter((driver: { id: string; }) => driver.id !== driverId);
-    await fs.writeFile(jsonFilePath, JSON.stringify(updatedDrivers, null, 2));
-    return updatedDrivers;
-  } catch (error) {
-    throw new Error('Error deleting driver');
-  }
-};

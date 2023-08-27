@@ -8,8 +8,7 @@ export const getTasks = async (req: Request, res: Response) => {
     try {
       tasks = await getAllTasks();
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error - getTasks' });
-      return;
+      return res.status(500).json({ error: 'Internal server error - getTasks' });
     }
   }
   res.json(tasks);

@@ -8,8 +8,7 @@ export const getDrivers = async (req: Request, res: Response) => {
     try {
       drivers = await getAllDrivers();
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error - getDrivers' });
-      return;
+      return res.status(500).json({ error: 'Internal server error - getDrivers' });
     }
   }
   res.json(drivers);
